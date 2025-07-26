@@ -14,7 +14,7 @@ const server = http.createServer(app);
 
 // Configure CORS to allow requests from localhost:3000
 const corsOptions = {
-  origin: ['http://localhost:3000', 'https://localhost:3000'],
+  origin: ['http://localhost:3000', 'https://quiz-wiz-kappa.vercel.app'],
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true
