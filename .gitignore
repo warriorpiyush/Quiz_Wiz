@@ -1,0 +1,347 @@
+# =============================================================================
+# QUIZWIZ PROJECT GITIGNORE
+# =============================================================================
+# This file ignores all root-level files except backend/ and frontend/ directories
+# to keep the repository clean and focused on the main application code.
+
+# =============================================================================
+# ROOT LEVEL FILES TO IGNORE
+# =============================================================================
+
+# Documentation and setup files
+*.md
+!README.md
+GOOGLE_AUTH_SETUP.md
+check-google-setup.md
+test-user-types.md
+
+# Test and debug scripts
+debug-*.js
+test-*.js
+*-test.js
+*-debug.js
+
+# Batch files and scripts
+*.bat
+*.sh
+*.ps1
+
+# Temporary files
+*.tmp
+*.temp
+*.log
+
+# =============================================================================
+# NODE.JS DEPENDENCIES (FRONTEND & BACKEND)
+# =============================================================================
+
+# Node modules in all directories
+node_modules/
+**/node_modules/
+frontend/node_modules/
+backend/node_modules/
+
+# Package manager files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# =============================================================================
+# ENVIRONMENT VARIABLES (FRONTEND & BACKEND)
+# =============================================================================
+
+# Root level environment files
+.env
+.env.local
+.env.development
+.env.development.local
+.env.test
+.env.test.local
+.env.production
+.env.production.local
+
+# Frontend environment files
+frontend/.env
+frontend/.env.local
+frontend/.env.development
+frontend/.env.development.local
+frontend/.env.test
+frontend/.env.test.local
+frontend/.env.production
+frontend/.env.production.local
+
+# Backend environment files
+backend/.env
+backend/.env.local
+backend/.env.development
+backend/.env.development.local
+backend/.env.test
+backend/.env.test.local
+backend/.env.production
+backend/.env.production.local
+
+# =============================================================================
+# BUILD OUTPUTS (FRONTEND & BACKEND)
+# =============================================================================
+
+# Build directories
+build/
+dist/
+out/
+frontend/build/
+frontend/dist/
+backend/build/
+backend/dist/
+
+# Static files
+frontend/public/static/
+backend/public/static/
+
+# =============================================================================
+# IDE AND EDITOR FILES
+# =============================================================================
+
+# Visual Studio Code
+.vscode/
+*.code-workspace
+
+# IntelliJ IDEA
+.idea/
+*.iml
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Vim
+*.swp
+*.swo
+*~
+
+# Emacs
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+
+# =============================================================================
+# OPERATING SYSTEM FILES
+# =============================================================================
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.lnk
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
+
+# =============================================================================
+# GITHUB RESTRICTED FILES & SECURITY
+# =============================================================================
+
+# Google OAuth Credentials (GitHub blocks these)
+**/credentials.json
+**/client_secret.json
+**/*-key.json
+**/*-secret.json
+**/service-account.json
+**/google-credentials.json
+**/oauth-credentials.json
+
+# API Keys and Tokens (GitHub secret scanning)
+**/*api-key*
+**/*api_key*
+**/*access-token*
+**/*access_token*
+**/*secret-key*
+**/*secret_key*
+**/*private-key*
+**/*private_key*
+
+# Database credentials
+**/*database-url*
+**/*db-url*
+**/*connection-string*
+**/*mongo-uri*
+**/*postgres-url*
+
+# Third-party service keys
+**/*stripe-key*
+**/*paypal-key*
+**/*aws-key*
+**/*azure-key*
+**/*gcp-key*
+**/*firebase-key*
+**/*sendgrid-key*
+**/*twilio-key*
+
+# JWT and session secrets
+**/*jwt-secret*
+**/*session-secret*
+**/*auth-secret*
+
+# SSL certificates and keys
+*.pem
+*.key
+*.crt
+*.cert
+*.p12
+*.pfx
+
+# SSH keys
+id_rsa
+id_dsa
+id_ecdsa
+id_ed25519
+*.pub
+
+# =============================================================================
+# SENSITIVE CONFIGURATION FILES
+# =============================================================================
+
+# Configuration files that might contain secrets
+config/production.json
+config/staging.json
+config/secrets.json
+**/config/production.*
+**/config/staging.*
+**/config/secrets.*
+
+# Docker secrets
+docker-compose.override.yml
+docker-compose.prod.yml
+.dockerignore
+
+# Kubernetes secrets
+**/k8s/*secret*
+**/kubernetes/*secret*
+
+# =============================================================================
+# LOGS AND DATABASES
+# =============================================================================
+
+# Log files
+*.log
+logs/
+*.log.*
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# =============================================================================
+# CACHE AND TEMPORARY FILES
+# =============================================================================
+
+# Cache directories
+.cache/
+.npm/
+.yarn/
+.pnpm-store/
+
+# Coverage reports
+coverage/
+*.lcov
+.nyc_output/
+
+# =============================================================================
+# KEEP THESE DIRECTORIES (WHITELIST)
+# =============================================================================
+
+# Main application directories - DO NOT IGNORE
+!backend/
+!frontend/
+!README.md
+
+# =============================================================================
+# SPECIFIC ROOT FILES TO IGNORE
+# =============================================================================
+
+# =============================================================================
+# GITHUB SECRET SCANNING PATTERNS
+# =============================================================================
+
+# Files containing potential secrets (common patterns GitHub scans)
+**/.*secret*
+**/.*key*
+**/.*token*
+**/.*password*
+**/.*credential*
+
+# Common secret file names
+secrets.txt
+passwords.txt
+keys.txt
+tokens.txt
+credentials.txt
+api-keys.txt
+
+# Backup files that might contain secrets
+*.bak
+*.backup
+*.old
+*.orig
+*.save
+
+# =============================================================================
+# ROOT LEVEL FILES TO IGNORE
+# =============================================================================
+
+# Current root-level files that should be ignored
+/GOOGLE_AUTH_SETUP.md
+/check-google-setup.md
+/debug-google-auth.js
+/install-google-auth.bat
+/start-dev.bat
+/test-gemini-integration.js
+/test-google-auth-complete.js
+/test-user-types.md
+/test-youtube-transcript.js
+
+# Any files with potential secrets in root
+/*secret*
+/*key*
+/*token*
+/*credential*
+/*password*
+
+# Any future root-level files (except whitelisted ones)
+/*
+!/backend/
+!/frontend/
+!/README.md
+!/.gitignore
+!/package.json
+!/LICENSE
