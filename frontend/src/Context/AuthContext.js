@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import axios from 'axios';
+import apiClient from '../config/axios';
 
 const AuthContext = createContext();
 
@@ -22,13 +22,7 @@ export const AuthProvider = ({ children }) => {
       console.log(`🔍 Checking authentication status... (attempt ${retryCount + 1})`);
       setLoading(true);
 
-      const response = await axios.get('http://localhost:8000/auth/status', {
-        withCredentials: true,
-        timeout: 10000, // 10 second timeout
-        headers: {
-          'Content-Type': 'application/json',
-        }
-      });
+      const response = await apiClient.get('/auth/status');
 
       console.log('Auth status response:', response.data);
 
@@ -68,9 +62,7 @@ export const AuthProvider = ({ children }) => {
   const logout = async () => {
     try {
       console.log('🚪 Initiating logout...');
-      await axios.get('http://localhost:8000/auth/logout', {
-        withCredentials: true
-      });
+      await apiClient.get('/auth/logout');
       setUser(null);
       setIsAuthenticated(false);
       console.log('✅ Logout successful, redirecting...');
@@ -87,9 +79,7 @@ export const AuthProvider = ({ children }) => {
   const forceLogout = async () => {
     try {
       console.log('🔧 Force logout initiated...');
-      await axios.post('http://localhost:8000/auth/force-logout', {}, {
-        withCredentials: true
-      });
+      await apiClient.post('/auth/force-logout', {});
       setUser(null);
       setIsAuthenticated(false);
       window.location.href = '/?logout=forced';
