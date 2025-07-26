@@ -6,7 +6,7 @@ export const addExaminer = async (data) => {
     let res = await axios.post(`${URL}/addExaminer`, data);
     return res;
   } catch (error) {
-    console.log(error);
+    // Handle error silently
   }
 };
 
@@ -15,7 +15,7 @@ export const getExaminer = async (data) => {
     let res = await axios.post(`${URL}/getExaminer`, data);
     return res;
   } catch (error) {
-    console.log(error);
+    // Handle error silently
   }
 };
 
@@ -24,7 +24,6 @@ export const getTextFromUrl = async (data) => {
     let res = await axios.post(`${URL}/getTextFromUrl`, data);
     return res;
   } catch (error) {
-    console.error("Error fetching website content:", error.message);
     return { status: -1, error: error.message };
   }
 };
@@ -38,7 +37,6 @@ export const generateQuestions = async (data) => {
 
     return res;
   } catch (error) {
-    console.error("Error generating questions:", error.message);
     return { status: -1, error: error.message };
   }
 };
@@ -48,7 +46,6 @@ export const getYouTubeTranscript = async (data) => {
     let res = await axios.post(`${URL}/getYouTubeTranscript`, data);
     return res;
   } catch (error) {
-    console.error("Error fetching YouTube transcript:", error.message);
     return { status: -1, error: error.message, response: error.response };
   }
 };

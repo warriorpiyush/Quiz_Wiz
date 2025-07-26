@@ -16,7 +16,6 @@ const AdminPanel = () => {
       setUsers(response.data);
       setLoading(false);
     } catch (error) {
-      console.error('Error fetching users:', error);
       setMessage('Error fetching users');
       setLoading(false);
     }

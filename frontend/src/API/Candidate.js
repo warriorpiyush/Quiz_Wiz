@@ -6,7 +6,7 @@ export const addCandidate = async (data) => {
     let res = await axios.post(`${URL}/addStudent`, data);
     return res;
   } catch (error) {
-    console.log(error);
+    // Handle error silently
   }
 };
 
@@ -15,7 +15,7 @@ export const getCandidate = async (data) => {
     let res = await axios.post(`${URL}/getStudent`, data);
     return res;
   } catch (error) {
-    console.log(error);
+    // Handle error silently
   }
 };
 
@@ -24,6 +24,6 @@ export const updateScore = async (data) => {
     let res = await axios.post(`${URL}/updateScore`, data);
     return res;
   } catch (error) {
-    console.log(error);
+    // Handle error silently
   }
 };

@@ -13,8 +13,6 @@ router.post('/promote-to-examiner', async (req, res) => {
       return res.status(400).json({ message: 'Email is required' });
     }
 
-    console.log(`🔄 Promoting user ${email} to examiner...`);
-
     // Find the student
     const student = await Student.findOne({ email: email });
     
@@ -47,9 +45,7 @@ router.post('/promote-to-examiner', async (req, res) => {
     // Delete the student record
     await Student.deleteOne({ _id: student._id });
 
-    console.log(`✅ Successfully promoted ${email} to examiner`);
-    
-    res.json({ 
+    res.json({
       message: 'User promoted to examiner successfully',
       examiner: {
         id: newExaminer._id,
@@ -59,7 +55,6 @@ router.post('/promote-to-examiner', async (req, res) => {
     });
 
   } catch (error) {
-    console.error('❌ Error promoting user:', error);
     res.status(500).json({ message: 'Internal server error', error: error.message });
   }
 });
@@ -76,7 +71,6 @@ router.get('/users', async (req, res) => {
       total: students.length + examiners.length
     });
   } catch (error) {
-    console.error('❌ Error fetching users:', error);
     res.status(500).json({ message: 'Internal server error' });
   }
 });
