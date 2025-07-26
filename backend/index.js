@@ -12,15 +12,31 @@ import adminRoutes from "./Routes/admin.js";
 const app = express();
 const server = http.createServer(app);
 
-// Configure CORS to allow requests from localhost:3000
+// Configure CORS to allow requests from frontend
 const corsOptions = {
-  origin: [
-    'http://localhost:3000',
-    'https://localhost:3000',
-    'https://quiz-wiz-kappa.vercel.app',
-    'https://quiz-wiz-kappa.vercel.app/',
-    /^https:\/\/quiz-wiz-.*\.vercel\.app$/
-  ],
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+
+    const allowedOrigins = [
+      'http://localhost:3000',
+      'https://localhost:3000',
+      'https://quiz-wiz-kappa.vercel.app',
+      'https://quiz-wiz-kappa.vercel.app/',
+    ];
+
+    // Check if origin is in allowed list or matches Vercel pattern
+    const isAllowed = allowedOrigins.includes(origin) ||
+                     /^https:\/\/quiz-wiz-.*\.vercel\.app$/.test(origin);
+
+    if (isAllowed) {
+      console.log(`✅ CORS: Allowing origin ${origin}`);
+      callback(null, true);
+    } else {
+      console.log(`❌ CORS: Blocking origin ${origin}`);
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
   allowedHeaders: [
     'Content-Type',
@@ -29,7 +45,9 @@ const corsOptions = {
     'Set-Cookie',
     'X-Requested-With',
     'Accept',
-    'Origin'
+    'Origin',
+    'Access-Control-Request-Method',
+    'Access-Control-Request-Headers'
   ],
   credentials: true,
   optionsSuccessStatus: 200,
@@ -38,28 +56,15 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
-// Handle preflight requests
-app.options('*', cors(corsOptions));
-
-// Additional CORS headers for complex requests
-app.use((req, res, next) => {
-  const origin = req.headers.origin;
-  const allowedOrigins = [
-    'http://localhost:3000',
-    'https://localhost:3000',
-    'https://quiz-wiz-kappa.vercel.app'
-  ];
-
-  if (allowedOrigins.includes(origin) || /^https:\/\/quiz-wiz-.*\.vercel\.app$/.test(origin)) {
-    res.setHeader('Access-Control-Allow-Origin', origin);
-  }
-
-  res.setHeader('Access-Control-Allow-Credentials', 'true');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS, PATCH');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, Cookie, Set-Cookie, X-Requested-With, Accept, Origin');
-  res.setHeader('Access-Control-Max-Age', '86400'); // 24 hours
-
-  next();
+// Handle preflight requests explicitly
+app.options('*', (req, res) => {
+  console.log(`🔄 Preflight request from: ${req.headers.origin}`);
+  res.header('Access-Control-Allow-Origin', req.headers.origin);
+  res.header('Access-Control-Allow-Credentials', 'true');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS, PATCH');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Cookie, Set-Cookie, X-Requested-With, Accept, Origin');
+  res.header('Access-Control-Max-Age', '86400');
+  res.sendStatus(200);
 });
 
 // Body parsing middleware (must come before routes)
@@ -84,6 +89,16 @@ app.use(session({
 // Initialize Passport
 app.use(passport.initialize());
 app.use(passport.session());
+
+// CORS test endpoint
+app.get('/test-cors', (req, res) => {
+  console.log(`🧪 CORS test request from: ${req.headers.origin}`);
+  res.json({
+    message: 'CORS is working!',
+    origin: req.headers.origin,
+    timestamp: new Date().toISOString()
+  });
+});
 
 // Routes
 app.use("/auth", authRoutes);

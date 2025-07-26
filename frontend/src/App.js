@@ -17,6 +17,7 @@ import SessionDebug from "./Components/Common/SessionDebug";
 import ExaminerSignupTest from "./Components/Common/ExaminerSignupTest";
 import UserDataInspector from "./Components/Common/UserDataInspector";
 import GoogleIndicatorTest from "./Components/Common/GoogleIndicatorTest";
+import CorsTest from "./Components/Common/CorsTest";
 function App() {
   return (
     <AuthProvider>
@@ -40,6 +41,7 @@ function App() {
             <Route path="/examiner-test" element={<ExaminerSignupTest />} />
             <Route path="/user-debug" element={<UserDataInspector />} />
             <Route path="/google-test" element={<GoogleIndicatorTest />} />
+            <Route path="/cors-test" element={<CorsTest />} />
           </Routes>
         </Router>
       </div>
