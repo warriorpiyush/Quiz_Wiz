@@ -22,37 +22,29 @@ export const addStudent = async (req, res) => {
 export const getStudent = async (req, res) => {
   try {
     const { email, password } = req.body;
-    console.log(`📊 Fetching student data for email: ${email}`);
 
     if (!email) {
-      console.log('❌ No email provided in request');
       return res.status(400).json({ message: "Email is required" });
     }
 
     const user = await Student.findOne({ email: email });
 
     if (!user) {
-      console.log(`❌ Student not found with email: ${email}`);
       return res
         .status(203)
         .json({ message: "User with this email does not exist" });
     }
-
-    console.log(`📊 Found student: ${user.email}, GoogleId: ${user.googleId ? 'Yes' : 'No'}`);
 
     // For Google users, password might be 'google-auth' or they might have googleId
     const isGoogleUser = user.googleId || password === 'google-auth';
     const isValidPassword = password === user.password;
 
     if (isValidPassword || isGoogleUser) {
-      console.log(`✅ Authentication successful for ${email} (Google: ${isGoogleUser})`);
       return res.status(200).json({ ...user });
     } else {
-      console.log(`❌ Authentication failed for ${email}`);
       return res.status(201).json({ message: "Wrong Password" });
     }
   } catch (error) {
-    console.error('❌ Error in getStudent:', error);
     return res.status(500).json({ message: "Could not fetch data" });
   }
 };

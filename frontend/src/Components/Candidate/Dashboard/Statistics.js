@@ -32,7 +32,6 @@ function Statistics() {
   useEffect(() => {
     const fetchCandidateData = async () => {
       if (!user?.email) {
-        console.log('⚠️ No user email found, skipping candidate data fetch');
         setLoading(false);
         return;
       }
@@ -40,19 +39,15 @@ function Statistics() {
       try {
         setLoading(true);
         setError(null);
-        console.log('📊 Fetching candidate data for user:', user.email);
 
         const response = await getCandidate({
           email: user.email,
           password: user.password || 'google-auth', // For Google users who don't have password
         });
 
-        console.log('📊 Candidate data response:', response);
-
         if (response?.data) {
           // Handle both direct data and _doc structure
           const userData = response.data._doc || response.data;
-          console.log('📊 Processed user data:', userData);
 
           // Ensure userData exists and has the expected structure
           if (userData && typeof userData === 'object') {
@@ -60,7 +55,6 @@ function Statistics() {
 
             // Process quiz data for chart with proper null checks
             const quizzes = Array.isArray(userData.quizzesAttended) ? userData.quizzesAttended : [];
-            console.log(`📊 Found ${quizzes.length} attended quizzes`);
 
             const codes = quizzes.map(quiz => quiz?.code || 'Unknown');
             const percentages = quizzes.map(quiz => {
@@ -72,7 +66,6 @@ function Statistics() {
             setQuizCodeArray(codes);
             setQuizObtainedArray(percentages);
           } else {
-            console.log('⚠️ Invalid user data structure, using fallback');
             // If userData is not valid, use sample data
             const safeSampleData = sampleUsers && sampleUsers.quizzesAttended ? sampleUsers : fallbackData;
             setCandidateData(safeSampleData);
@@ -103,7 +96,6 @@ function Statistics() {
             setQuizObtainedArray(percentages);
           }
       } catch (err) {
-        console.error("❌ Error fetching candidate data:", err);
         setError('Failed to load your quiz history. Please try refreshing the page.');
 
         // Fallback to sample data for testing

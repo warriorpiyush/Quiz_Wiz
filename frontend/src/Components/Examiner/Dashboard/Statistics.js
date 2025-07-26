@@ -51,7 +51,6 @@ function Statistics() {
   useEffect(() => {
     const getAllQuizes = async () => {
       if (!user?.email) {
-        console.log('⚠️ No user email found, skipping quiz fetch');
         setLoading(false);
         return;
       }
@@ -59,24 +58,18 @@ function Statistics() {
       try {
         setLoading(true);
         setError(null);
-        console.log('📊 Fetching quizzes for user:', user.email);
 
         const res = await getQuizes({
           email: user.email,
           password: user.password || 'google-auth', // For Google users who don't have password
         });
 
-        console.log('📊 Quiz fetch response:', res);
-
         if (res && res.data) {
           setQuizes(res.data);
-          console.log(`✅ Found ${res.data.length} quizzes`);
         } else {
-          console.log('⚠️ No quiz data in response');
           setQuizes([]);
         }
       } catch (err) {
-        console.error('❌ Error fetching quizzes:', err);
         setError('Failed to load quizzes. Please try refreshing the page.');
         setQuizes([]);
       } finally {

@@ -10,16 +10,13 @@ const CorsTest = () => {
     setTestResult(null);
 
     try {
-      console.log('🧪 Testing CORS connection...');
       const response = await apiClient.get('/test-cors');
-      console.log('✅ CORS test successful:', response.data);
       setTestResult({
         success: true,
         data: response.data,
         message: 'CORS is working correctly!'
       });
     } catch (error) {
-      console.error('❌ CORS test failed:', error);
       setTestResult({
         success: false,
         error: error.message,
@@ -35,16 +32,13 @@ const CorsTest = () => {
     setTestResult(null);
 
     try {
-      console.log('🔐 Testing auth status endpoint...');
       const response = await apiClient.get('/auth/status');
-      console.log('✅ Auth status test successful:', response.data);
       setTestResult({
         success: true,
         data: response.data,
         message: 'Auth endpoint is working correctly!'
       });
     } catch (error) {
-      console.error('❌ Auth status test failed:', error);
       setTestResult({
         success: false,
         error: error.message,

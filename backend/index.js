@@ -30,10 +30,8 @@ const corsOptions = {
                      /^https:\/\/quiz-wiz-.*\.vercel\.app$/.test(origin);
 
     if (isAllowed) {
-      console.log(`✅ CORS: Allowing origin ${origin}`);
       callback(null, true);
     } else {
-      console.log(`❌ CORS: Blocking origin ${origin}`);
       callback(new Error('Not allowed by CORS'));
     }
   },
@@ -58,7 +56,6 @@ app.use(cors(corsOptions));
 
 // Handle preflight requests explicitly
 app.options('*', (req, res) => {
-  console.log(`🔄 Preflight request from: ${req.headers.origin}`);
   res.header('Access-Control-Allow-Origin', req.headers.origin);
   res.header('Access-Control-Allow-Credentials', 'true');
   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS, PATCH');
@@ -92,7 +89,6 @@ app.use(passport.session());
 
 // CORS test endpoint
 app.get('/test-cors', (req, res) => {
-  console.log(`🧪 CORS test request from: ${req.headers.origin}`);
   res.json({
     message: 'CORS is working!',
     origin: req.headers.origin,
